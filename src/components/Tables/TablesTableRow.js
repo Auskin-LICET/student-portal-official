@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 import {
   Avatar,
   Badge,
@@ -8,10 +10,10 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
+import axios from "axios";
 
 function TablesTableRow(props) {
-  const { sno, name, email, reg, roll } = props;
+  const { name, email, reg, roll, dept, batch } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const bgStatus = useColorModeValue("gray.400", "#1a202c");
   const colorStatus = useColorModeValue("white", "gray.400");
@@ -24,45 +26,41 @@ function TablesTableRow(props) {
       color={textColor}
       fontWeight="bold"
       minWidth="100%"
-      onClick={() =>
-        window.open("http://localhost:3000/admin#/admin/GeneralInformationdata")
-      }
+      onClick={() => {
+        localStorage.setItem("generalStudent", roll);
+        let params = new URLSearchParams();
+        params.append("RollNumber", localStorage.getItem("generalStudent"));
+        window.location.href ="http://localhost:3000/admin#/admin/GeneralInformationdata";
+      }}
+      id={roll}
       _hover={{
         Radius: "20px",
         background: "#3b4e6b",
         color: "white",
       }}
     >
-      <Td minWidth={{ sm: "250px" }}>
-        <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-          <Flex direction="column">
-            <Text
-              fontSize="md"
-              color={textColor}
-              fontWeight="bold"
-              minWidth="100%"
-            >
-              {sno}
-            </Text>
-          </Flex>
-        </Flex>
-      </Td>
-      <Td minWidth={{ sm: "250px" }} pl="0rem">
-        <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-          <Flex direction="column">{name}</Flex>
-        </Flex>
-      </Td>
-
       <Td>
         <Flex direction="column">
           <Text fontSize="md" color={textColor} fontWeight="bold">
-            {reg}
+            {roll}
+          </Text>
+        </Flex>
+      </Td>
+      <Td>
+        <Flex direction="column">
+          <Text fontSize="md" color={textColor} fontWeight="bold">
+            {name}
           </Text>
         </Flex>
       </Td>
       <Td>
         <Text fontSize="md" color={textColor} fontWeight="bold" pb=".5rem">
-          {roll}
+          {reg}
+        </Text>
+      </Td>
+      <Td>
+        <Text fontSize="md" color={textColor} fontWeight="bold" pb=".5rem">
+          {batch}
         </Text>
       </Td>
       <Td>
@@ -70,7 +68,6 @@ function TablesTableRow(props) {
           {email}
         </Text>
       </Td>
-      {/* </Button> */}
     </Tr>
   );
 }
