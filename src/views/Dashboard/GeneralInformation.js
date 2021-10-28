@@ -34,10 +34,9 @@ import { SearchBar } from "components/Navbars/SearchBar/SearchBar";
 function GeneralInformation() {
   const [data, setData] = useState([]);
   useEffect(async () => {
-    axios.get("http://localhost:5000/General").then((items) => {
+    axios.get("http://localhost:5000/GeneralOfficial").then((items) => {
       setData(items.data);
     });
-    console.log(data);
   });
   const { isOpen, onToggle } = useDisclosure();
   const textColor = useColorModeValue("gray.700", "white");
@@ -92,12 +91,12 @@ function GeneralInformation() {
             <Table variant="simple" color={textColor}>
               <Thead>
                 <Tr my=".8rem" pl="0px" color="gray.400">
-                  <Th color="gray.400">S.No.</Th>
-                  <Th pl="0px" color="gray.400">
+                  <Th color="gray.400">Roll No.</Th>
+                  <Th color="gray.400">
                     Name
                   </Th>
                   <Th color="gray.400">Resitration Number</Th>
-                  <Th color="gray.400">Roll Number</Th>
+                  <Th color="gray.400">Batch</Th>
                   <Th color="gray.400">Email</Th>
                   <Th></Th>
                 </Tr>
@@ -106,11 +105,11 @@ function GeneralInformation() {
                 {data.map((item) => {
                   return (
                     <TablesTableRow
-                      sno={item.sno}
-                      name={item.name}
-                      reg={item.reg}
-                      email={item.email}
-                      roll={item.roll}
+                      roll={item.roll_no}
+                      name={item.sname}
+                      reg={item.reg_no}
+                      batch={item.batch}
+                      email={item.licet_email}
                     />
                   );
                 })}
